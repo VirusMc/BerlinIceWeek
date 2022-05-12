@@ -32,37 +32,35 @@ router.get("/", (req, res) => {
             break;
         // 3 - Show page view
         case 3:
-            res.render("index/show", {
-                base: data,
-                page: Number(req.query.page) || 1,
-            });
+            if (data.finished) {
+                res.render("index/show", {
+                    base: data,
+                    page: Number(req.query.page) || 1,
+                });
+            }
             break;
         // 4 - Show duell page view
         case 4:
-            if (data.finished) {
-                if (duelRound < 2) {
-                    if (
-                        Number(req.query.page) > Math.floor(originalLength / 3)
-                    ) {
-                        data.data = shuffle(data.data);
-                        originalLength = data.data.length;
-                        duelRound++;
+            if (duelRound < 2) {
+                if (Number(req.query.page) > Math.floor(originalLength / 3)) {
+                    data.data = shuffle(data.data);
+                    originalLength = data.data.length;
+                    duelRound++;
 
-                        res.redirect("/?stage=4&page=1");
-                    } else {
-                        res.render("index/duel", {
-                            base: data,
-                            page: Number(req.query.page) || 1,
-                        });
-                    }
-                } else if (duelRound === 2) {
-                    res.redirect("/?stage=5");
+                    res.redirect("/?stage=4&page=1");
                 } else {
                     res.render("index/duel", {
                         base: data,
                         page: Number(req.query.page) || 1,
                     });
                 }
+            } else if (duelRound === 2) {
+                res.redirect("/?stage=5");
+            } else {
+                res.render("index/duel", {
+                    base: data,
+                    page: Number(req.query.page) || 1,
+                });
             }
             break;
         // 5 - Show end result or page view
