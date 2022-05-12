@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <%- include('../components/header') %>
+        <title>Bestätige den Datensatz</title>
+    </head>
+    <body>
+        <div class="position-absolute top-50 start-50 translate-middle">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title text-center">
+                        <i class="bi bi-check-square-fill"></i> Möchtest du den
+                        Datensatz wirklich benutzen?
+                    </h5>
+                    <div class="card-text">
+                        <p>
+                            Fertig: <% if (base.finished === true) { %><span
+                                style="color: var(--bs-success)"
+                                ><i class="bi bi-check-square-fill"></i
+                            ></span>
+                            <% } else { %>
+                            <span style="color: var(--bs-danger)"
+                                ><i class="bi bi-x-square-fill"></i
+                            ></span>
+                            <% } %>
+                        </p>
+                        <br />
+                        <% currentStage = 2; finished = true %> <%-
+                        include('../components/show-table') %>
+                        <br />
+                        <div class="text-center">
+                            <a href="/?stage=1" class="btn btn-danger"
+                                ><i class="bi bi-arrow-left"></i> Falscher
+                                Datensatz</a
+                            >
+                            <a href="/?stage=3" class="btn btn-success"
+                                >Bestätigen! <i class="bi bi-arrow-right"></i
+                            ></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

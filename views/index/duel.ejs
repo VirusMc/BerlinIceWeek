@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <%- include('../components/header') %>
+        <title>Welche Eissorte magst du mehr?</title>
+        <style>
+            .select-hover:hover {
+                background-color: var(--bs-success);
+            }
+        </style>
+    </head>
+    <body>
+        <h1 class="text-center">Welche Eissorte gefällt dir besser?</h1>
+        <div class="hstack" style="height: 94vh">
+            <% for (let i = (page - 1)*2; i < page * 2; i++) { %> <% if (i <
+            base.data.length && !(i % 2 === 0 && i + 1 === base.data.length)) {
+            %>
+            <a
+                href="<%= `/delete?&i=${i % 2 === 0 ? i+1 : i-1}&returnPage=${page + 1}&returnStage=4` %>"
+                class="btn btn-secondary h-100 w-50 select-hover"
+            >
+                <div class="position-relative top-50 start-50 translate-middle">
+                    <h1><%= base.data[i].ice_cream %></h1>
+                    <p>
+                        <i class="bi bi-shop"></i> <%= base.data[i].location %>
+                    </p>
+                </div>
+            </a>
+            <% } %> <% } %>
+        </div>
+    </body>
+</html>

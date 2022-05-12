@@ -1,0 +1,74 @@
+<style>
+    .link-dark {
+        text-decoration: none;
+    }
+</style>
+<table class="text-center align-middle table">
+    <thead>
+        <th scope="col">Name</th>
+        <th scope="col">Eissorte</th>
+        <th scope="col">Adresse</th>
+    </thead>
+    <tbody>
+        <% for (let i = (page-1) * 5; i < (page) * 5; i++) { %> <% if (i <
+        base.data.length) { %>
+        <tr scope="row">
+            <td><%= base.data[i].market %></td>
+            <td><%= base.data[i].ice_cream %></td>
+            <td>
+                <a
+                    class="link-dark"
+                    target="_blank"
+                    href="<%= `https://www.google.com/maps/place/${base.data[i].location.replace(' ', '+')}` %>"
+                    ><%= base.data[i].location %></a
+                >
+            </td>
+            <% if (finished !== true) { %>
+            <td>
+                <a
+                    href="<%= `/delete?&i=${i}&returnPage=${page}&returnStage=${currentStage}` %>"
+                    class="btn btn-danger"
+                    ><i class="bi bi-trash-fill"></i
+                ></a>
+            </td>
+            <% } %>
+        </tr>
+        <% } %> <% } %>
+    </tbody>
+</table>
+<nav>
+    <ul class="pagination justify-content-center">
+        <li class="page-item <% if (page === 1) { %>disabled<% } %>">
+            <a
+                class="page-link"
+                href="<%= `/?stage=${currentStage}&page=${page-1}` %>"
+                aria-label="Previous"
+            >
+                <span aria-hidden="true">&laquo;</span>
+            </a>
+        </li>
+
+        <% for (let i = 1; i <= Math.ceil(base.data.length/5); i++) { %>
+
+        <li class="page-item <% if (i === page) { %>active<% } %>">
+            <a
+                class="page-link"
+                href="<%= `/?stage=${currentStage}&page=${i}` %>"
+                ><%= i %></a
+            >
+        </li>
+        <% } %>
+
+        <li
+            class="page-item <% if (page === Math.ceil(base.data.length/5)) { %>disabled<% } %>"
+        >
+            <a
+                class="page-link"
+                href="<%= `/?stage=${currentStage}&page=${page + 1}` %>"
+                aria-label="Next"
+            >
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+        </li>
+    </ul>
+</nav>

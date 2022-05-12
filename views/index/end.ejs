@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <%- include('../components/header') %>
+        <title>Finale Karte</title>
+        <%- include('../components/map-basic') %>
+    </head>
+    <body
+        onload="initialize_map(); <% for (let i = 0; i < base.data.length; i++) { %><%= `add_map_point(${base.data[i].geocode[1]}, ${base.data[i].geocode[0]}, \"${base.data[i].market} - ${base.data[i].ice_cream.split(' ')[0]}\");` %><% } %>"
+    >
+
+    <style>
+        .link-dark {
+            text-decoration: none;
+        }
+    </style>
+
+    <div class="text-center">
+        <a href="/downloadable" class="btn btn-info" download><i class="bi bi-cloud-download-fill"></i> Lade das Ergebniss runter!</a>
+    </div>
+
+    <table class="text-center align-middle table">
+        <thead>
+            <th scope="col">Name</th>
+            <th scope="col">Eissorte</th>
+            <th scope="col">Adresse</th>
+        </thead>
+        <tbody>
+            <% for (let i = 0; i < base.data.length; i++) { %> <% if (i <
+            base.data.length) { %>
+            <tr scope="row">
+                <td><%= base.data[i].market %></td>
+                <td><%= base.data[i].ice_cream %></td>
+                <td>
+                    <a
+                        class="link-dark"
+                        target="_blank"
+                        href="<%= `https://www.google.com/maps/place/${base.data[i].location.replace(' ', '+')}` %>"
+                        ><%= base.data[i].location %></a
+                    >
+                </td>
+                <td>
+                    <a
+                        href="<%= `/delete?&i=${i}&returnStage=5` %>"
+                        class="btn btn-danger"
+                        ><i class="bi bi-trash-fill"></i
+                    ></a>
+                </td>
+            </tr>
+            <% } %> <% } %>
+        </tbody>
+    </table>
+
+    <div
+        class="mt-4 text-center justify-content-center"
+        id="map"
+        style="width: 100vw; height: 50vh"
+    ></div>
+    </body>
+</html>

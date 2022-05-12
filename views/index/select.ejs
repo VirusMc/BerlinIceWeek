@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <%- include('../components/header') %>
+        <title>Wähle den Datensatz</title>
+    </head>
+    <body>
+        <div class="position-absolute top-50 start-50 translate-middle">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <i class="bi bi-filetype-json"></i> Datensatz
+                        festsetzen!
+                    </h5>
+                    <h6 class="card-subtitle mb-2 text-muted">
+                        Lade eine JSON-Datei hoch!
+                    </h6>
+                    <div class="card-text">
+                        <form
+                            method="post"
+                            action="/submit"
+                            enctype="multipart/form-data"
+                        >
+                            <input
+                                name="database"
+                                type="file"
+                                accept="application/json"
+                            />
+                            <button type="submit" class="btn btn-primary">
+                                Weiter <i class="bi bi-arrow-right"></i>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <%- include('../components/header') %>
+        <title>Datensatz aussortieren</title>
+        <%- include('../components/map-basic') %>
+    </head>
+    <body
+        onload="initialize_map(); <% for (let i = (page-1) * 5; i < (page) * 5 && i < base.data.length; i++) { %><%= `add_map_point(${base.data[i].geocode[1]}, ${base.data[i].geocode[0]}, \"${base.data[i].market} - ${base.data[i].ice_cream.split(' ')[0]}\");` %><% } %>"
+    >
+        <% currentStage = 3; finished= base.finished
+        %><%-include('../components/show-table') %>
+        <div class="text-center"><a href="/?stage=4" class="btn btn-success">Datensatz bewerten</a></div>
+
+        <div
+            class="position-absolute bottom-0 start-50 translate-middle-x mb-2"
+        >
+            <div
+                class="text-centered"
+                id="map"
+                style="width: 50vw; height: 50vh"
+            ></div>
+        </div>
+    </body>
+</html>
